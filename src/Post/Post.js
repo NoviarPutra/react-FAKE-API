@@ -10,18 +10,19 @@ const Post = (props) => {
         <Card.Img variant="top" src="https://placeimg.com/200/150/tech" />
         <Card.Body>
           <Card.Title className="text-center title" style={{ height: "6rem" }}>
-            {props.title}
+            {props.data.title}
             {/* {props.data.title} */}
           </Card.Title>
           <Card.Text className="text-justify desc" style={{ height: "12rem" }}>
-            {props.desc}
+            {props.data.body}
             {/* {props.data.body} */}
           </Card.Text>
         </Card.Body>
+        <Button onClick={() => props.handleEdit(props.data)}>Edit</Button>
         <Button
           variant="danger"
           className="mt-1"
-          onClick={() => props.remove(props.id)}
+          onClick={() => props.handleRemove(props.data.id)}
           // onClick={() => props.remove(props.data.id)}
         >
           Remove

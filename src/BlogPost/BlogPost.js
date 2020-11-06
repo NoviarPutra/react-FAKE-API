@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Row, Container, Form, Button } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import Post from "../Post/Post";
 import axios from "axios";
+import FormComponent from "../Form/FormComponent";
 
 export class BlogPost extends Component {
   state = {
@@ -12,6 +13,7 @@ export class BlogPost extends Component {
       title: "",
       body: "",
     },
+    isUpdate: false,
   };
 
   getPostAPI = () => {
@@ -26,16 +28,16 @@ export class BlogPost extends Component {
       })
       .catch((error) => {
         // handle error
-        console.log("ERROR GOBLOK!!!", error);
+        console.log("Error : ", error);
       });
   };
 
   handleFormChange = (e) => {
-    // console.log(e.target.name);
-    // console.log(this.state.formBlogPost);
     let formBlogPostNew = { ...this.state.formBlogPost };
     let timeStamp = new Date().getTime();
-    formBlogPostNew["id"] = timeStamp;
+    if (!this.state.isUpdate) {
+      formBlogPostNew["id"] = timeStamp;
+    }
     formBlogPostNew[e.target.name] = e.target.value;
     this.setState({
       formBlogPost: formBlogPostNew,
@@ -47,6 +49,14 @@ export class BlogPost extends Component {
       (result) => {
         // console.log(result);
         this.getPostAPI();
+        this.setState({
+          formBlogPost: {
+            userID: 1,
+            id: 1,
+            title: "",
+            body: "",
+          },
+        });
       },
       (err) => {
         console.log("error: ", err);
@@ -54,16 +64,49 @@ export class BlogPost extends Component {
     );
   };
 
-  handleSubmit = () => {
-    this.postDataToAPI();
+  putDataToAPI = () => {
+    axios
+      .put(
+        `http://localhost:3004/posts/${this.state.formBlogPost.id}`,
+        this.state.formBlogPost
+      )
+      .then((result) => {
+        console.log(result);
+        this.getPostAPI();
+        this.setState({
+          isUpdate: false,
+          formBlogPost: {
+            userID: 1,
+            id: 1,
+            title: "",
+            body: "",
+          },
+        });
+      });
   };
 
-  handleRemove = (data) => {
+  handleSubmit = () => {
+    if (this.state.isUpdate) {
+      this.putDataToAPI();
+    } else {
+      this.postDataToAPI();
+    }
+  };
+
+  handleRemove = (dataId) => {
     // console.log(data);
-    axios.delete(`http://localhost:3004/posts/${data}`).then((result) => {
+    axios.delete(`http://localhost:3004/posts/${dataId}`).then((result) => {
       // console.log(result);
       this.getPostAPI();
     });
+  };
+
+  handleEdit = (allData) => {
+    this.setState({
+      formBlogPost: allData,
+      isUpdate: true,
+    });
+    console.log(allData);
   };
 
   componentDidMount() {
@@ -73,42 +116,26 @@ export class BlogPost extends Component {
   render() {
     return (
       <Container>
-        <Form className="mt-3">
-          <Form.Group controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              placeholder="Title"
-              onChange={this.handleFormChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              name="body"
-              placeholder="Description"
-              rows={3}
-              onChange={this.handleFormChange}
-            />
-          </Form.Group>
-          <Button variant="primary" onClick={this.handleSubmit}>
-            Submit
-          </Button>
-        </Form>
+        <FormComponent
+          isUpdate={this.state.isUpdate}
+          data={this.state.formBlogPost}
+          handleFormChange={this.handleFormChange}
+          handleRemove={this.handleRemove}
+          handleSubmit={this.handleSubmit}
+        />
         <Row>
           {/* Looping  */}
           {this.state.post.map((post) => {
             // console.log(post);
             return (
               <Post
+                data={post}
                 key={post.id}
-                id={post.id}
-                title={post.title}
-                desc={post.body}
-                // data={post}
-                remove={this.handleRemove}
+                // id={post.id}
+                // title={post.title}
+                // desc={post.body}
+                handleEdit={this.handleEdit}
+                handleRemove={this.handleRemove}
               />
             );
           })}
