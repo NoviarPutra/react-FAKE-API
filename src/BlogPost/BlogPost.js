@@ -1,16 +1,22 @@
 import React, { Component } from "react";
-import { Row, Container } from "react-bootstrap";
+import { Row, Container, Form, Button } from "react-bootstrap";
 import Post from "../Post/Post";
 import axios from "axios";
 
 export class BlogPost extends Component {
   state = {
     post: [],
+    formBlogPost: {
+      userID: 1,
+      id: 1,
+      title: "",
+      body: "",
+    },
   };
 
   getPostAPI = () => {
     axios
-      .get("http://localhost:3004/posts")
+      .get("http://localhost:3004/posts?_sort=id&_order=desc")
       .then((result) => {
         // handle success
         this.setState({
@@ -24,6 +30,34 @@ export class BlogPost extends Component {
       });
   };
 
+  handleFormChange = (e) => {
+    // console.log(e.target.name);
+    // console.log(this.state.formBlogPost);
+    let formBlogPostNew = { ...this.state.formBlogPost };
+    let timeStamp = new Date().getTime();
+    formBlogPostNew["id"] = timeStamp;
+    formBlogPostNew[e.target.name] = e.target.value;
+    this.setState({
+      formBlogPost: formBlogPostNew,
+    });
+  };
+
+  postDataToAPI = () => {
+    axios.post("http://localhost:3004/posts", this.state.formBlogPost).then(
+      (result) => {
+        // console.log(result);
+        this.getPostAPI();
+      },
+      (err) => {
+        console.log("error: ", err);
+      }
+    );
+  };
+
+  handleSubmit = () => {
+    this.postDataToAPI();
+  };
+
   handleRemove = (data) => {
     // console.log(data);
     axios.delete(`http://localhost:3004/posts/${data}`).then((result) => {
@@ -33,34 +67,36 @@ export class BlogPost extends Component {
   };
 
   componentDidMount() {
-    // Fetching Default using Vanilla / ES6
-    // fetch("https://jsonplaceholder.typicode.com/posts")
-    //   .then((response) => response.json())
-    //   .then((json) => {
-    //     this.setState({
-    //       post: json,
-    //     });
-    //   });
-
-    // axios
-    //   .get("http://localhost:3004/posts")
-    //   .then((result) => {
-    //     // handle success
-    //     this.setState({
-    //       post: result.data,
-    //     });
-    //     // console.log(result.data);
-    //   })
-    //   .catch((error) => {
-    //     // handle error
-    //     console.log("ERROR GOBLOK!!!", error);
-    //   });
     this.getPostAPI();
   }
 
   render() {
     return (
       <Container>
+        <Form className="mt-3">
+          <Form.Group controlId="title">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              name="title"
+              placeholder="Title"
+              onChange={this.handleFormChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              name="body"
+              placeholder="Description"
+              rows={3}
+              onChange={this.handleFormChange}
+            />
+          </Form.Group>
+          <Button variant="primary" onClick={this.handleSubmit}>
+            Submit
+          </Button>
+        </Form>
         <Row>
           {/* Looping  */}
           {this.state.post.map((post) => {
@@ -68,10 +104,10 @@ export class BlogPost extends Component {
             return (
               <Post
                 key={post.id}
+                id={post.id}
                 title={post.title}
                 desc={post.body}
                 // data={post}
-                id={post.id}
                 remove={this.handleRemove}
               />
             );
