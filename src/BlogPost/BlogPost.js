@@ -101,6 +101,17 @@ export class BlogPost extends Component {
     });
   };
 
+  handleClear = () => {
+    this.setState({
+      formBlogPost: {
+        userID: 1,
+        id: 1,
+        title: "",
+        body: "",
+      },
+    });
+  };
+
   handleEdit = (allData) => {
     this.setState({
       formBlogPost: allData,
@@ -122,6 +133,7 @@ export class BlogPost extends Component {
           handleFormChange={this.handleFormChange}
           handleRemove={this.handleRemove}
           handleSubmit={this.handleSubmit}
+          handleClear={this.handleClear}
         />
         <Row>
           {/* Looping  */}

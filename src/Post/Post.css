@@ -1,8 +1,9 @@
 .title {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .desc {
-  font-size: 22px;
+  padding-top: 2px;
+  font-size: 13px;
 }

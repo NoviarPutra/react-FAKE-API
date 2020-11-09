@@ -1,16 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import BlogPost from "./BlogPost/BlogPost";
-import Header from "./BlogPost/Header";
+import Home from "./Home/Home";
 // import './index.css';
 // import App from "./App";
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Header />
-    <BlogPost />
+    <Home />
   </React.StrictMode>,
   document.getElementById("root")
 );

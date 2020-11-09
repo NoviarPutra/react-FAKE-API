@@ -27,8 +27,11 @@ const FormComponent = (props) => {
           autoComplete="off"
         />
       </Form.Group>
-      <Button variant="primary" onClick={props.handleSubmit}>
+      <Button variant="primary" className="mr-3" onClick={props.handleSubmit}>
         Submit
+      </Button>
+      <Button variant="danger" onClick={props.handleClear}>
+        Clear
       </Button>
     </Form>
   );
