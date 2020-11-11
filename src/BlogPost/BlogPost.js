@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Container } from "react-bootstrap";
+import { Row, Container, Col } from "react-bootstrap";
 import Post from "../Post/Post";
 import axios from "axios";
 import FormComponent from "../Form/FormComponent";
@@ -14,6 +14,7 @@ export class BlogPost extends Component {
       body: "",
     },
     isUpdate: false,
+    isClear: false,
   };
 
   getPostAPI = () => {
@@ -120,6 +121,13 @@ export class BlogPost extends Component {
     console.log(allData);
   };
 
+  handleClear = (id) => {
+    console.log(id);
+    this.setState({
+      isClear: !this.state.isClear,
+    });
+  };
+
   componentDidMount() {
     this.getPostAPI();
   }
@@ -134,23 +142,27 @@ export class BlogPost extends Component {
           handleRemove={this.handleRemove}
           handleSubmit={this.handleSubmit}
           handleClear={this.handleClear}
+          isClear={this.state.isClear}
         />
         <Row>
-          {/* Looping  */}
-          {this.state.post.map((post) => {
-            // console.log(post);
-            return (
-              <Post
-                data={post}
-                key={post.id}
-                // id={post.id}
-                // title={post.title}
-                // desc={post.body}
-                handleEdit={this.handleEdit}
-                handleRemove={this.handleRemove}
-              />
-            );
-          })}
+          <Col>
+            {/* Looping  */}
+            {this.state.post.map((post) => {
+              // console.log(post);
+              return (
+                <Post
+                  data={post}
+                  key={post.id}
+                  // id={post.id}
+                  // title={post.title}
+                  // desc={post.body}
+                  handleEdit={this.handleEdit}
+                  handleRemove={this.handleRemove}
+                  handleClear={this.handleClear}
+                />
+              );
+            })}
+          </Col>
         </Row>
       </Container>
     );
