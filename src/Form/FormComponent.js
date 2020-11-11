@@ -2,6 +2,15 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 
 const FormComponent = (props) => {
+  let clearButton;
+
+  if (props.isClear) {
+    clearButton = (
+      <Button variant="danger" onClick={props.handleClear}>
+        Clear
+      </Button>
+    );
+  }
   return (
     <Form className="mt-3">
       <Form.Group controlId="title">
@@ -30,9 +39,7 @@ const FormComponent = (props) => {
       <Button variant="primary" className="mr-3" onClick={props.handleSubmit}>
         Submit
       </Button>
-      <Button variant="danger" onClick={props.handleClear}>
-        Clear
-      </Button>
+      {clearButton}
     </Form>
   );
 };

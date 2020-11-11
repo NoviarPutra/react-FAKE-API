@@ -1,34 +1,89 @@
 import React from "react";
-import { Col, Card, Button } from "react-bootstrap";
-import "./Post.css";
+import { Col, Card, Button, Row } from "react-bootstrap";
 
 const Post = (props) => {
   // console.log(props);
   return (
-    <Col sm={4}>
-      <Card style={{ width: "10rem" }} className="mt-3">
-        <Card.Img variant="top" src="https://placeimg.com/200/150/tech" />
-        <Card.Body>
-          <Card.Title className="text-center title" style={{ height: "3rem" }}>
-            {props.data.title}
-            {/* {props.data.title} */}
-          </Card.Title>
-          <Card.Text className="text-justify desc" style={{ height: "6rem" }}>
-            {props.data.body}
-            {/* {props.data.body} */}
-          </Card.Text>
-        </Card.Body>
-        <Button onClick={() => props.handleEdit(props.data)}>Edit</Button>
-        <Button
-          variant="danger"
-          className="mt-1"
-          onClick={() => props.handleRemove(props.data.id)}
-          // onClick={() => props.remove(props.data.id)}
-        >
-          Remove
-        </Button>
+    <>
+      <Card>
+        <Row>
+          <Col>
+            <Card.Img variant="top" src="https://placeimg.com/200/150/tech" />
+          </Col>
+          <Col>
+            <Card.Title
+              className="text-center title"
+              style={{ height: "3rem" }}
+            >
+              {props.data.title}
+              {/* {props.data.title} */}
+            </Card.Title>
+            <Card.Text className="text-justify desc" style={{ height: "6rem" }}>
+              {props.data.body}
+              {/* {props.data.body} */}
+            </Card.Text>
+            <Row>
+              <Col>
+                <Button
+                  className="w-100"
+                  onClick={() => {
+                    props.handleEdit(props.data);
+                    props.handleClear(props.data.id);
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  className="w-100"
+                  variant="danger"
+                  onClick={() => props.handleRemove(props.data.id)}
+                  // onClick={() => props.remove(props.data.id)}
+                >
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </Card>
-    </Col>
+    </>
+    // <Col sm={4}>
+    //   <Card className="p-4">
+    //     <Row>
+    //       <Col className="p-0">
+    //       </Col>
+    //       <Col className="p-0">
+    //         <Card.Title
+    //           className="text-center title"
+    //           style={{ height: "3rem" }}
+    //         >
+    //           {props.data.title}
+    //           {/* {props.data.title} */}
+    //         </Card.Title>
+    //         <Card.Text className="text-justify desc" style={{ height: "6rem" }}>
+    //           {props.data.body}
+    //           {/* {props.data.body} */}
+    //         </Card.Text>
+    //       </Col>
+    //     </Row>
+    //     <Button
+    //       onClick={() => {
+    //         props.handleEdit(props.data);
+    //         props.handleClear(props.data.id);
+    //       }}
+    //     >
+    //       Edit
+    //     </Button>
+    //     <Button
+    //       variant="danger"
+    //       className="mt-1"
+    //       onClick={() => props.handleRemove(props.data.id)}
+    //       // onClick={() => props.remove(props.data.id)}
+    //     >
+    //       Remove
+    //     </Button>
+    //   </Card>
+    // </Col>
   );
 };
 
