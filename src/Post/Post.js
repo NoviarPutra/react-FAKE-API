@@ -1,8 +1,20 @@
-import React from "react";
-import { Col, Card, Button, Row } from "react-bootstrap";
+import React from 'react';
+import { Col, Card, Button, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 const Post = (props) => {
   // console.log(props);
+  const history = useHistory();
+
+  const handleClickTitle = (id, title) => {
+    history.push({
+      pathname: `/edit/${id}`,
+      state: {
+        kon: title,
+      },
+    });
+  };
+
   return (
     <>
       <Card>
@@ -13,12 +25,13 @@ const Post = (props) => {
           <Col>
             <Card.Title
               className="text-center title"
-              style={{ height: "3rem" }}
+              style={{ height: '3rem' }}
+              onClick={() => handleClickTitle(props.data.id, props.data.title)}
             >
               {props.data.title}
               {/* {props.data.title} */}
             </Card.Title>
-            <Card.Text className="text-justify desc" style={{ height: "6rem" }}>
+            <Card.Text className="text-justify desc" style={{ height: '6rem' }}>
               {props.data.body}
               {/* {props.data.body} */}
             </Card.Text>
