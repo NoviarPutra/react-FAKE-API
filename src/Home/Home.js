@@ -1,9 +1,10 @@
-import React, { Component, Fragment } from "react";
-import BlogPost from "../BlogPost/BlogPost";
-import About from "../About/About";
-import HomeComponent from "./HomeComponent";
-import { Navbar, Nav } from "react-bootstrap";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import React, { Component, Fragment } from 'react';
+import BlogPost from '../BlogPost/BlogPost';
+import About from '../About/About';
+import HomeComponent from './HomeComponent';
+import { Navbar, Nav } from 'react-bootstrap';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import Edit from '../Edit';
 
 export class Home extends Component {
   render() {
@@ -40,6 +41,9 @@ export class Home extends Component {
           </Route>
           <Route path="/About">
             <About />
+          </Route>
+          <Route path="/edit/:id">
+            <Edit />
           </Route>
         </Fragment>
       </BrowserRouter>
