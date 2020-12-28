@@ -6,7 +6,7 @@ const FormComponent = (props) => {
 
   if (props.isClear) {
     clearButton = (
-      <Button variant="danger" onClick={props.handleClear}>
+      <Button variant="danger" className="mb-5" onClick={props.handleClear}>
         Clear
       </Button>
     );
@@ -36,7 +36,11 @@ const FormComponent = (props) => {
           autoComplete="off"
         />
       </Form.Group>
-      <Button variant="primary" className="mr-3" onClick={props.handleSubmit}>
+      <Button
+        variant="primary"
+        className="mr-3 mb-5"
+        onClick={props.handleSubmit}
+      >
         Submit
       </Button>
       {clearButton}

@@ -1,7 +1,11 @@
+// Libraries
 import React from "react";
 import ReactDOM from "react-dom";
+// Pages
+import Home from "./Content/Home/Home";
+// Styling
 import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./Home/Home";
+
 // import './index.css';
 // import App from "./App";
 // import reportWebVitals from './reportWebVitals';

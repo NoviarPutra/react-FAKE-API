@@ -1,8 +1,10 @@
+// Libraries
 import React, { Component } from "react";
 import { Row, Container, Col } from "react-bootstrap";
-import Post from "../Post/Post";
 import axios from "axios";
-import FormComponent from "../Form/FormComponent";
+// Pages
+import Post from "./Post/Post";
+import FormComponent from "../BlogPost/Form/FormComponent";
 
 export class BlogPost extends Component {
   state = {
@@ -102,15 +104,26 @@ export class BlogPost extends Component {
     });
   };
 
-  handleClear = () => {
+  showButtonClear = (id) => {
+    // console.log(id);
     this.setState({
-      formBlogPost: {
-        userID: 1,
-        id: 1,
-        title: "",
-        body: "",
-      },
+      isClear: !this.state.isClear,
     });
+  };
+
+  handleClear = () => {
+    if (this.state.isClear) {
+      this.setState({
+        formBlogPost: {
+          userID: 1,
+          id: 1,
+          title: "",
+          body: "",
+        },
+      });
+    } else {
+      this.showButtonClear();
+    }
   };
 
   handleEdit = (allData) => {
@@ -118,14 +131,7 @@ export class BlogPost extends Component {
       formBlogPost: allData,
       isUpdate: true,
     });
-    console.log(allData);
-  };
-
-  handleClear = (id) => {
-    console.log(id);
-    this.setState({
-      isClear: !this.state.isClear,
-    });
+    // console.log(allData);
   };
 
   componentDidMount() {
@@ -153,12 +159,10 @@ export class BlogPost extends Component {
                 <Post
                   data={post}
                   key={post.id}
-                  // id={post.id}
-                  // title={post.title}
-                  // desc={post.body}
                   handleEdit={this.handleEdit}
                   handleRemove={this.handleRemove}
                   handleClear={this.handleClear}
+                  showButtonClear={this.showButtonClear}
                 />
               );
             })}
