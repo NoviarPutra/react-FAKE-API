@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import About from "../pages/About/About";
 import BlogPost from "../pages/BlogPost/BlogPost";
 import DetailPost from "../pages/BlogPost/DetailPost/DetailPost";
+import Product from "../pages/Product/Product";
 import HomeComponent from "./HomeComponent";
 
 export class Home extends Component {
@@ -25,6 +26,9 @@ export class Home extends Component {
                 <Link to="/BlogPost">Blog Post</Link>
               </Nav.Link>
               <Nav.Link href="#">
+                <Link to="/Product">Product</Link>
+              </Nav.Link>
+              <Nav.Link href="#">
                 <Link to="/About">About</Link>
               </Nav.Link>
             </Nav>
@@ -35,8 +39,18 @@ export class Home extends Component {
           <Route path="/BlogPost">
             <BlogPost />
           </Route>
-          <Route path="/DetailPost/:id">
+          <Route
+            path="/DetailPost/:PostID"
+            location={this.props.location}
+            key={this.props.location}
+            render={({ location, match }) => (
+              <DetailPost key={this.props.location.key} match={match} />
+            )}
+          >
             <DetailPost />
+          </Route>
+          <Route path="/Product">
+            <Product />
           </Route>
           <Route path="/About">
             <About />

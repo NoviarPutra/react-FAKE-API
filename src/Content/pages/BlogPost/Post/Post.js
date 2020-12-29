@@ -2,6 +2,8 @@
 import React from "react";
 import { Col, Card, Button, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+// Styling
+import "./Post.css";
 
 const Post = (props) => {
   // console.log(props);

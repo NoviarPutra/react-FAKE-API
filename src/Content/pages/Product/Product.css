@@ -1,0 +1,39 @@
+.header {
+  background: #68c93e;
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+}
+
+.troley {
+  position: relative;
+}
+
+.troley img {
+  width: 30px;
+}
+
+.count {
+  background: #2d3c8d;
+  padding: 10px;
+  border-radius: 50%;
+  min-width: 10px;
+  height: 10px;
+  line-height: 10px;
+  text-align: center;
+  color: white;
+  font-size: 11px;
+  position: absolute;
+  bottom: -8px;
+  left: -13px;
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: 10px;
+  width: 320px;
+  border-radius: 4px;
+}

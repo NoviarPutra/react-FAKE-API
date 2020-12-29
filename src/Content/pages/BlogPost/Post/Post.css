@@ -1,9 +1,3 @@
-.title {
-  font-weight: 700;
-  font-size: 17px;
-}
-
-.desc {
-  padding-top: 2px;
-  font-size: 13px;
+.title:hover {
+  cursor: pointer;
 }
