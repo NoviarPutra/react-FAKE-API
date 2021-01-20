@@ -1,26 +1,10 @@
-// Libraries
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-// Pages
 import Home from "./Content/Home/Home";
-// Styling
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// import './index.css';
-// import App from "./App";
-// import reportWebVitals from './reportWebVitals';
-// const redux = require("redux");
-
-const initialState = {
-  totalOrder: 0,
-};
-
-// Reducer
-const rootReducer = (state = initialState, action) => {
-  return state;
-};
+import rootReducer from "./Redux/Reducer/globalReducer";
 
 // Store
 const store = createStore(rootReducer);
